@@ -1,0 +1,16 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
+    <persistence-unit name="miUnidadPersistencia">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:libros.db"/>
+            <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
+            <property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.cache.use_second_level_cache"
+                      value="false"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
