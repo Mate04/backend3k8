@@ -10,6 +10,7 @@ import org.example.repositories.UserRepositoryImp;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -38,10 +39,10 @@ public class Main {
         UserRepositoryImp userRepository = new UserRepositoryImp();
         RepositoryRepositoryImp repositoryRepositoryImp = new RepositoryRepositoryImp();
         TagRepositoryImp tagRepositoryImp = new TagRepositoryImp();
-        User user = new User("Mateo");
-        Repository repo = new Repository("JPA","JPA PERSITENCE",LocalDate.of(2003,4,3),3,"hola.com",user);
-        userRepository.save(user);
-        repositoryRepositoryImp.save(repo);
+        List<User> rep = userRepository.findAll();
+
+
+
 
     }
 }

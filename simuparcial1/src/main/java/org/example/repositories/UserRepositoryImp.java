@@ -38,7 +38,7 @@ public class UserRepositoryImp implements Repository<User, Long> {
     @Override
     public List<User> findAll() {
         try {
-            String jpql = String.format("SELECT e FROM %s e", User.class);
+            String jpql = "SELECT e FROM users e";
             Query query = manager.createQuery(jpql);
             return query.getResultList();
         } catch (HibernateException ex) {
