@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import org.example.entities.Genre;
 import org.example.repository.context.DbContext;
 import org.hibernate.HibernateException;
@@ -48,5 +49,17 @@ public class GenreRepository implements Repository<Genre, Integer> {
     @Override
     public void delete(Integer id) {
 
+    }
+
+    @Override
+    public Genre findByName(String name) {
+        try {
+            String jpql = "SELECT g FROM Genre g WHERE g.name = :name";
+            return em.createQuery(jpql, Genre.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

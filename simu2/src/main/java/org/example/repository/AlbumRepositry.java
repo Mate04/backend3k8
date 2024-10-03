@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import org.example.entities.Album;
 import org.example.repository.context.DbContext;
 import org.hibernate.HibernateException;
@@ -46,5 +47,18 @@ public class AlbumRepositry implements Repository<Album, Integer> {
     @Override
     public void delete(Integer id) {
 
+    }
+
+    @Override
+    public Album findByName(String title) {
+        // Cambia 'albums' por el nombre de la entidad 'Album' y usa un alias más coherente.
+        try {
+            String jpql = "SELECT a FROM Album a WHERE a.title = :title";
+            return em.createQuery(jpql, Album.class)
+                    .setParameter("title", title)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

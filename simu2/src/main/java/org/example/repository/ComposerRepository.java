@@ -1,6 +1,8 @@
 package org.example.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 import org.example.entities.Composer;
 import org.example.repository.context.DbContext;
 import org.hibernate.HibernateException;
@@ -46,5 +48,17 @@ public class ComposerRepository implements Repository<Composer, Integer> {
     @Override
     public void delete(Integer id) {
 
+    }
+
+    @Override
+    public Composer findByName(String name) {
+        try {
+            String jpql = "select c from Composer c where c.name = :name";
+            return em.createQuery(jpql,Composer.class)
+                    .setParameter("name",name)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

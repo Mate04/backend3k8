@@ -22,12 +22,7 @@ public class Artist {
                 '}';
     }
 
-    @ManyToMany
-    @JoinTable(
-        name = "tracksXartistas",
-            joinColumns = @JoinColumn(name = "track_id"),
-            inverseJoinColumns = @JoinColumn(name = "artist_id")
-    )
+    @ManyToMany(mappedBy = "artists")
     private List<Track> tracks;
 
     public Artist() {}

@@ -8,4 +8,5 @@ public interface Repository <T,k>{
     List<T> findAll();
     void update(T entity);
     void delete(k id);
+    T findByName(String name);
 }

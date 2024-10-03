@@ -12,12 +12,7 @@ public class Composer {
     private Integer id;
     @Column(unique = true, nullable = false)
     private String name;
-    @ManyToMany
-    @JoinTable(
-            name = "composeXtrack",
-            joinColumns = @JoinColumn(name = "track_id"),
-            inverseJoinColumns = @JoinColumn(name = "composer_id")
-    )
+    @ManyToMany(mappedBy = "composers")
     private List<Track> tracks;
 
 

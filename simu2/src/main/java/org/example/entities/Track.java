@@ -30,16 +30,35 @@ public class Track {
     @JoinColumn(name = "genre_id",nullable = true )
     private Genre genre;
 
-    @ManyToMany(mappedBy = "tracks")
+
+    @ManyToMany
+    @JoinTable(
+            name = "composeXtrack",
+            joinColumns = @JoinColumn(name = "track_id"),
+            inverseJoinColumns = @JoinColumn(name = "composer_id")
+    )
     private List<Composer> composers;
 
-    @ManyToMany(mappedBy = "tracks")
+
+    @ManyToMany
+    @JoinTable(
+            name = "tracksXartistas",
+            joinColumns = @JoinColumn(name = "track_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id")
+    )
     private List<Artist> artists;
 
     public Track() {}
     public Track(String title, int miliSeconds) {
         this.title = title;
         this.miliSeconds = miliSeconds;
+    }
+    public Track(String title, int miliSeconds, Album album, MediaType mediaType, Genre genre) {
+        this.title = title;
+        this.miliSeconds = miliSeconds;
+        this.album = album;
+        this.mediaType = mediaType;
+        this.genre = genre;
     }
     public void addComposer(Composer composer) {
         this.composers.add(composer);

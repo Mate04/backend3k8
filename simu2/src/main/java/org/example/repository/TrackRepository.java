@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import org.example.entities.Track;
 import org.example.repository.context.DbContext;
@@ -72,6 +73,18 @@ public class TrackRepository implements Repository<Track, Integer> {
             manager.getTransaction().rollback();
         }finally {
             manager.getTransaction().commit();
+        }
+    }
+
+    @Override
+    public Track findByName(String name) {
+        try {
+            String jpql = "SELECT t FROM Track t WHERE t.title = :name";
+            return manager.createQuery(jpql, Track.class)
+            .setParameter("name", name)
+            .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         }
     }
 }

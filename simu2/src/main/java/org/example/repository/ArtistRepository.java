@@ -1,6 +1,8 @@
 package org.example.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 import org.example.entities.Artist;
 import org.example.repository.context.DbContext;
 import org.hibernate.HibernateException;
@@ -47,5 +49,17 @@ public class ArtistRepository implements Repository<Artist,Integer> {
     @Override
     public void delete(Integer id) {
 
+    }
+
+    @Override
+    public Artist findByName(String name) {
+        try {
+            String jpql = "SELECT a FROM Artist a WHERE a.name = :name";
+            return em.createQuery(jpql, Artist.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

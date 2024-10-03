@@ -1,6 +1,8 @@
 package org.example.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 import org.example.entities.MediaType;
 import org.example.repository.context.DbContext;
 import org.hibernate.HibernateException;
@@ -47,5 +49,17 @@ public class MediaTypeRepository implements Repository<MediaType,Integer> {
     @Override
     public void delete(Integer id) {
 
+    }
+
+    @Override
+    public MediaType findByName(String name) {
+        try {
+            String jpql = "select m from MediaType m where m.name =:name";
+            return em.createQuery(jpql,MediaType.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }
