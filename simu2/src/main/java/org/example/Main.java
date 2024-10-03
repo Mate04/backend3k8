@@ -11,9 +11,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        GenreRepository genreRepository = new GenreRepository();
-        ComposerRepository composerRepository = new ComposerRepository();
-        MediaTypeRepository typeRepository = new MediaTypeRepository();
+
         cargarDatos();
 
 
