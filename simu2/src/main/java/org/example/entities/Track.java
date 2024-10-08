@@ -14,7 +14,7 @@ public class Track {
     @Column(unique = true, nullable = false)
     private String title;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private int miliSeconds;
 
 

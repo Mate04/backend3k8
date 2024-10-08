@@ -36,17 +36,22 @@ public class AlbumRepositry implements Repository<Album, Integer> {
 
     @Override
     public List<Album> findAll() {
-        return List.of();
+        return em.createQuery("select a from Album a", Album.class).getResultList();
     }
 
     @Override
     public void update(Album entity) {
-
+        em.getTransaction().begin();
+        em.merge(entity);
+        em.getTransaction().commit();
     }
 
     @Override
     public void delete(Integer id) {
-
+        em.getTransaction().begin();
+        Album entity = findById(id);
+        em.remove(entity);
+        em.getTransaction().commit();
     }
 
     @Override

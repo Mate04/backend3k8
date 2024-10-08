@@ -69,4 +69,10 @@ public class Album {
                 ", id=" + id +
                 '}';
     }
+
+    public Integer contarMsTracks(){
+        return tracks.stream()
+                .mapToInt(Track::getMiliSeconds)
+                .sum();
+    }
 }

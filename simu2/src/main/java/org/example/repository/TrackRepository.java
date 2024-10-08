@@ -10,13 +10,12 @@ import org.hibernate.HibernateException;
 import java.util.List;
 
 public class TrackRepository implements Repository<Track, Integer> {
-    EntityManager manager;
+    static final EntityManager manager = DbContext.getInstance().getManager();
 
     public TrackRepository(){
-        this.manager = DbContext.getInstance().getManager();
     }
     @Override
-    public void save(Track entity) {
+     public void save(Track entity) {
         try {
             manager.getTransaction().begin();
             manager.persist(entity);

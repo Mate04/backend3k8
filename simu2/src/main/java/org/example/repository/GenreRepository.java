@@ -38,7 +38,7 @@ public class GenreRepository implements Repository<Genre, Integer> {
 
     @Override
     public List<Genre> findAll() {
-        return List.of();
+        return em.createQuery("select g from Genre g", Genre.class).getResultList();
     }
 
     @Override

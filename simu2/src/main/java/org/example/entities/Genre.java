@@ -58,4 +58,8 @@ public class Genre {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    public Integer countTracks() {
+        return tracks.size();
+    }
 }

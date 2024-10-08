@@ -3,6 +3,8 @@ package org.example;
 import org.example.entities.*;
 import org.example.repository.*;
 import org.example.repository.context.DbContext;
+import org.example.services.AlbumService;
+import org.example.services.GenreService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,15 +13,14 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-        cargarDatos();
-
-
+        new Album();
 
     }
 
 
     public static void cargarDatos(){
+        AlbumService albumService = new AlbumService();
+
         try {
                 TrackRepository trackRepository = new TrackRepository();
                 InputStream is = Main.class.getResource("/Tracks_Data.txt").openStream();
@@ -34,7 +35,7 @@ public class Main {
                     String nameTrack = campos[1];
                     int milisecond = Integer.parseInt(campos[5]);
                     //cargamos cada valor
-                    Album album = cargarAlbum(campos[2]);
+                    Album album = albumService.cargarAlbum(campos[2]);
                     Genre genre = cargaGenre(campos[6]);
                     MediaType mediaType = cargaMediaType(campos[7]);
                     Track track = cargaTrack(nameTrack, milisecond, album,mediaType,genre);
@@ -42,13 +43,14 @@ public class Main {
                     String[] artistas = campos[3].split(",",-1);
 
                     for (String artista : artistas) {
-                        track.addArtist(cargaArtist(artista));
+                        Artist artist = cargaArtist(artista);
                     }
+
                     String[] composes = campos[4].split(",",-1);
                     for (String compose : composes) {
                         track.addComposer(cargaComposer(compose));
                     }
-                    trackRepository.update(track);
+
 
 
                 }
@@ -60,15 +62,7 @@ public class Main {
 
     }
 
-    public static Album cargarAlbum(String title){
-        AlbumRepositry albumRepositry = new AlbumRepositry();
-        Album album = albumRepositry.findByName(title);
-        if (album == null){
-            album = new Album(title);
-            albumRepositry.save(album);
-        }
-        return album;
-    }
+
 
     public static Artist cargaArtist(String name){
         ArtistRepository artistRepository = new ArtistRepository();
